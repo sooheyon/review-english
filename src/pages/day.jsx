@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import englishData from "../englishData.json";
+import axios from "axios";
 
 const Day = () => {
   const { day } = useParams();
@@ -8,6 +9,7 @@ const Day = () => {
   const [dailyData, setDailyData] = useState();
   const [isVisible, setIsVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClickPrev = () => {
     currentPage === 0
@@ -19,6 +21,43 @@ const Day = () => {
     currentPage === dailyData.sentences.length - 1
       ? setCurrentPage(0)
       : setCurrentPage(currentPage + 1);
+  };
+
+  const onClickSound = async () => {
+    const baseURL = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    const requestBody = {
+      input: {
+        text: dailyData.sentences[currentPage].english,
+      },
+      voice: {
+        languageCode: "en-gb",
+        name: "en-GB-Standard-A",
+        ssmlGender: "FEMALE",
+      },
+      audioConfig: {
+        audioEncoding: "MP3",
+        pitch: 15,
+      },
+    };
+    try {
+      setIsLoading(true);
+      const response = await axios.post(baseURL, requestBody);
+
+      const binaryData = atob(response.data.audioContent);
+      const byteArray = new Uint8Array(binaryData.length);
+
+      for (let i = 0; i < binaryData.length; i++) {
+        byteArray[i] = binaryData.charCodeAt(i);
+      }
+
+      const blob = new Blob([byteArray.buffer], { type: "audio/mp3" });
+      const newAudio = new Audio(URL.createObjectURL(blob));
+
+      document.body.appendChild(newAudio);
+      newAudio.play();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const clickBlackVeil = () => {
@@ -68,7 +107,9 @@ const Day = () => {
         <button onClick={onClickNext} className="button-style">
           Next
         </button>
-        <button className="button-style">Sound</button>
+        <button onClick={onClickSound} className="button-style">
+          Sound
+        </button>
       </div>
     </div>
   );
