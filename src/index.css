@@ -7,11 +7,24 @@
     @apply bg-gray-500 rounded-md py-1 px-2 text-white hover:bg-gray-400 active:bg-gray-600 active:scale-[0.97] transition-all;
   }
 
+  .icon-button-style {
+    @apply text-gray-700 hover:opacity-[0.6] active:opacity-[1] active:scale-[0.9] transition-all;
+  }
+
   .container {
     @apply min-h-screen max-w-screen-md mx-auto px-8 pt-20;
   }
+
   h1 {
     @apply text-center text-4xl font-extrabold;
+  }
+
+  .box-style {
+    @apply flex flex-col mb-4 p-4 rounded-lg shadow-mild;
+  }
+
+  .box-animation {
+    @apply hover:opacity-[0.6] active:opacity-[1] cursor-pointer active:scale-[0.96] transition-all;
   }
 }
 

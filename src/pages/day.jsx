@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import englishData from "../englishData.json";
 import axios from "axios";
+import { MdHomeFilled } from "react-icons/md";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { HiSpeakerphone } from "react-icons/hi";
 
 const Day = () => {
   const { day } = useParams();
@@ -76,42 +79,57 @@ const Day = () => {
   if (!dailyData) return <div>Loading</div>;
   return (
     <div className="container relative">
-      <div className="absolute  top-4 left-4">
-        <Link to="/" className="button-style">
-          back
+      <div className="absolute top-4 left-4">
+        <Link to="/" className="icon-button-style">
+          <MdHomeFilled size={24} />
         </Link>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center pt-10">
         <span className="text-xs text-gray-600 font-semibold text-center bg-gray-300 rounded-lg py-1 px-3">
           DAY {dailyData.day}
         </span>
-        <h1 className="pt-3 pb-20">{dailyData.title}</h1>
+        <h1 className="pt-3 pb-12">{dailyData.title}</h1>
       </div>
-      <div className="mt-12">
-        <div className="flex flex-col p-8 mb-8 border-2 ">
+      <div className="mt-12 flex flex-col py-10 px-8 mb-8 box-style text-xl">
+        <div className="flex flex-row justify-between">
           <span className="mb-3 font-semibold text-gray-600">
             Q{currentPage + 1}
           </span>
+          <button onClick={onClickSound} className="icon-button-style">
+            <HiSpeakerphone size={24} />
+          </button>
+        </div>
+
+        <div className="flex flex-row pt-8">
+          <span className="mr-4 text-2xl">🇬🇧</span>
           <span className="font-bold">
             {dailyData.sentences[currentPage].english}
           </span>
         </div>
-        <button
-          onClick={clickBlackVeil}
-          className={`${isVisible ? "" : "bg-black hover:bg-transparent"}`}
-        >
-          {dailyData.sentences[currentPage].korean}
-        </button>
+
+        <div className="flex flex-row pt-8">
+          <span className="mr-4 text-2xl">🇰🇷</span>
+          <button
+            onClick={clickBlackVeil}
+            className={`w-full ${
+              isVisible ? "" : "bg-black hover:bg-transparent"
+            } transition-all text-left break-keep`}
+          >
+            {dailyData.sentences[currentPage].korean}
+          </button>
+        </div>
       </div>
-      <div className="flex flex-row gap-2 mt-8">
-        <button onClick={onClickPrev} className="button-style">
-          Prev
+      <div className="flex flex-row justify-center items-center gap-2 mt-20 text-xl">
+        <button onClick={onClickPrev} className="icon-button-style">
+          <IoIosArrowBack size={32} />
         </button>
-        <button onClick={onClickNext} className="button-style">
-          Next
-        </button>
-        <button onClick={onClickSound} className="button-style">
-          Sound
+
+        <span>{currentPage + 1}</span>
+        <p className="text-md">/</p>
+        <span>{dailyData.sentences.length}</span>
+
+        <button onClick={onClickNext} className="icon-button-style">
+          <IoIosArrowForward size={32} />
         </button>
       </div>
     </div>
