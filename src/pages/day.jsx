@@ -39,11 +39,21 @@ const Day = () => {
           back
         </Link>
       </div>
-      <h1 className="text-center">
-        Day {dailyData.day} : {dailyData.title}
-      </h1>
+      <div className="flex flex-col items-center">
+        <span className="text-xs text-gray-600 font-semibold text-center bg-gray-300 rounded-lg py-1 px-3">
+          DAY {dailyData.day}
+        </span>
+        <h1 className="pt-3 pb-20">{dailyData.title}</h1>
+      </div>
       <div className="mt-12">
-        <div>{dailyData.sentences[currentPage].english}</div>
+        <div className="flex flex-col p-8 mb-8 border-2 ">
+          <span className="mb-3 font-semibold text-gray-600">
+            Q{currentPage + 1}
+          </span>
+          <span className="font-bold">
+            {dailyData.sentences[currentPage].english}
+          </span>
+        </div>
         <button
           onClick={clickBlackVeil}
           className={`${isVisible ? "" : "bg-black hover:bg-transparent"}`}

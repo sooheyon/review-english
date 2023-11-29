@@ -11,7 +11,7 @@
     @apply min-h-screen max-w-screen-md mx-auto px-8 pt-20;
   }
   h1 {
-    @apply text-center text-4xl p-20 font-extrabold;
+    @apply text-center text-4xl font-extrabold;
   }
 }
 
