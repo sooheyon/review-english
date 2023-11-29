@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .button-style {
+    @apply bg-gray-500 rounded-md py-1 px-2 text-white hover:bg-gray-400 active:bg-gray-600 active:scale-[0.97] transition-all;
+  }
+
+  .container {
+    @apply min-h-screen max-w-screen-md mx-auto px-8 pt-20;
+  }
+  h1 {
+    @apply text-center text-4xl p-20 font-extrabold;
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

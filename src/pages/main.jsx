@@ -4,7 +4,7 @@ import MainCard from "../components/MainCard";
 
 const Main = () => {
   return (
-    <div className="min-h-screen max-w-screen-md mx-auto px-8 pt-20">
+    <div className="container">
       <h1 className="text-center text-4xl p-20 font-extrabold">
         🇬🇧 STUDY ENGLISH 🇺🇸
       </h1>
