@@ -40,6 +40,7 @@ const Day = () => {
       },
     };
     try {
+      if (isLoading) return;
       setIsLoading(true);
       const response = await axios.post(baseURL, requestBody);
 
@@ -55,6 +56,8 @@ const Day = () => {
 
       document.body.appendChild(newAudio);
       newAudio.play();
+
+      setIsLoading(false);
     } catch (e) {
       console.error(e);
     }
